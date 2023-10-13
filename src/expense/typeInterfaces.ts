@@ -3,4 +3,5 @@ export interface ExpenseType {
   type: string;
   category: string;
   amount: number;
+  createdAt: string;
 }

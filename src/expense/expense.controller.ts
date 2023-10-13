@@ -29,6 +29,7 @@ export class ExpenseController {
   addExpense(@Body() newExpense: NewExpenseValidator) {
     return this.appService.addExpense({
       id: new Date().getTime(),
+      createdAt: new Date().toString(),
       ...newExpense,
     });
   }
@@ -38,7 +39,11 @@ export class ExpenseController {
     @Param('id') expenseId: string,
     @Body() updatedExpense: NewExpenseValidator,
   ) {
-    return this.appService.editExpense({ id: +expenseId, ...updatedExpense });
+    return this.appService.editExpense({
+      id: +expenseId,
+      ...updatedExpense,
+      createdAt: new Date().toString(),
+    });
   }
 
   @Delete('/deleteExpense/:id')

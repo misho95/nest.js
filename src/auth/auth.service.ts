@@ -17,9 +17,29 @@ export class AuthService {
         return u;
       }
     });
+    if (!AuthUser) {
+      return {
+        message: 'Invaild Credentials!',
+        error: 'Bad Request',
+        statusCode: 400,
+      };
+    }
     return AuthUser;
   }
   signUp(user: AuthUserType) {
+    const checkEmail = this.users.find((u) => {
+      if (u.email === user.email) {
+        return u;
+      }
+    });
+    if (checkEmail) {
+      return {
+        message: 'Email is Already In Use!',
+        error: 'Bad Request',
+        statusCode: 400,
+      };
+    }
     this.users.push(user);
+    return 'SignedUp Successfully!';
   }
 }

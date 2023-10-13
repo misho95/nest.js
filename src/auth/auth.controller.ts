@@ -8,8 +8,10 @@ import { AuthUserType } from './auth.interface';
 export class AuthController {
   constructor(private readonly appService: AuthService) {}
 
-  @Get('/users')
-  getUsers(): AuthUserType[] {
+  //აქ თუ url ს მხოლოდ /users დავწერ არ მუშაობს გეთმეთოდით არაფერი მოდის
+
+  @Get('/users/data')
+  getUser(): AuthUserType[] {
     return this.appService.getUsers();
   }
 
