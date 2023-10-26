@@ -7,10 +7,6 @@ export class AuthService {
     { id: 1, username: 'misho95', email: 'misho@mail.ru', password: '123456' },
   ];
 
-  getUsers(): AuthUserType[] {
-    return this.users;
-  }
-
   signIn(user: AuthSingInType) {
     const AuthUser = this.users.find((u) => {
       if (u.email === user.email && u.password === user.password) {
@@ -26,6 +22,7 @@ export class AuthService {
     }
     return AuthUser;
   }
+
   signUp(user: AuthUserType) {
     const checkEmail = this.users.find((u) => {
       if (u.email === user.email) {

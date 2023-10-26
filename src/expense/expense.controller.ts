@@ -6,12 +6,15 @@ import {
   Post,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { ExpenseType } from './typeInterfaces';
 import { NewExpenseValidator } from './api-inputs';
+import { AuthGuard } from './auth.guard';
 
-@Controller()
+@UseGuards(AuthGuard)
+@Controller('/api/expense')
 export class ExpenseController {
   constructor(private readonly appService: ExpenseService) {}
 
@@ -25,7 +28,7 @@ export class ExpenseController {
     return this.appService.getExpense(expenseId);
   }
 
-  @Post('/addExpense')
+  @Post('/')
   addExpense(@Body() newExpense: NewExpenseValidator) {
     return this.appService.addExpense({
       id: new Date().getTime(),
@@ -34,7 +37,7 @@ export class ExpenseController {
     });
   }
 
-  @Put('/editExpense/:id')
+  @Put('/:id')
   editExpense(
     @Param('id') expenseId: string,
     @Body() updatedExpense: NewExpenseValidator,
@@ -46,7 +49,7 @@ export class ExpenseController {
     });
   }
 
-  @Delete('/deleteExpense/:id')
+  @Delete('/:id')
   deleteExpense(@Param('id') expenseId: string) {
     return this.appService.deleteExpense(expenseId);
   }
